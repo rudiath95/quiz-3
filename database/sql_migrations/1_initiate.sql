@@ -2,7 +2,7 @@
 -- +migrate StatementBegin
 
 CREATE TABLE category (
-    id serial,
+    id SERIAL,
     name varchar(100) NOT NULL,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     updated_at timestamp DEFAULT CURRENT_TIMESTAMP,
@@ -10,7 +10,7 @@ CREATE TABLE category (
 );
 
 CREATE TABLE books (
-    id serial,
+    id SERIAL,
     title varchar(100) NOT NULL,
     description varchar(100) NOT NULL,
     image_url varchar(100) NOT NULL,
