@@ -40,6 +40,12 @@ func InsertBooks(db *sql.DB, books structs.Books) (err error) {
 		books.Thickness = "tebal"
 	}
 
+	if books.ReleaseYear < 1980 {
+		panic("ReleaseYear tidak boleh kurang dari 1980")
+	} else if books.ReleaseYear > 2021 {
+		panic("ReleaseYear tidak boleh lebih dari 2021")
+	}
+
 	books.Updated_at = time.Now()
 	errs := db.QueryRow(sql, books.ID, books.Title, books.Description, books.Image, books.Price, books.TotalPage, books.Thickness, books.ReleaseYear, books.Updated_at, books.CategoryID)
 

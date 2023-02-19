@@ -1,3 +1,6 @@
+-- +migrate Up
+-- +migrate StatementBegin
+
 CREATE TABLE category (
     id serial,
     name varchar(100) NOT NULL,
@@ -23,3 +26,5 @@ CREATE TABLE books (
       REFERENCES category(id)
       ON DELETE CASCADE
 );
+
+-- +migrate StatementEnd
