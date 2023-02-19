@@ -53,15 +53,21 @@ func main() {
 		"admin":  "password",
 		"editor": "secret",
 	}))
-	router.GET("/category", controllers.GetAllCategory)
-	authorized.POST("/category", controllers.InsertCategory)
-	authorized.PUT("/category/:id", controllers.UpdatedCategory)
-	authorized.DELETE("/category/:id", controllers.DeletedCategory)
+	router.GET("/categories", controllers.GetAllCategory)
+	router.GET("/categories/:id/books ", controllers.GetBookFromCategory)
+	authorized.POST("/categories", controllers.InsertCategory)
+	authorized.PUT("/categories/:id", controllers.UpdatedCategory)
+	authorized.DELETE("/categories/:id", controllers.DeletedCategory)
 
 	router.GET("/books", controllers.GetAllBooks)
 	authorized.POST("/books", controllers.InsertBooks)
 	authorized.PUT("/books/:id", controllers.UpdatedBook)
 	authorized.DELETE("/books/:id", controllers.DeletedBook)
+
+	router.GET("/segitiga-sama-sisi", controllers.Segitiga)
+	router.GET("/persegi", controllers.Persegi)
+	router.GET("/persegi-panjang", controllers.PersegiPanjang)
+	router.GET("/lingkaran", controllers.Lingkaran)
 
 	router.Run(":" + os.Getenv("PORT"))
 

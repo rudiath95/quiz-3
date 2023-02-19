@@ -30,6 +30,26 @@ func GetAllCategory(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
+func GetBookFromCategory(c *gin.Context) {
+	var (
+		result gin.H
+	)
+
+	category, err := repository.GetBookFromCategory(database.DbConnection)
+
+	if err != nil {
+		result = gin.H{
+			"result": err,
+		}
+	} else {
+		result = gin.H{
+			"result": category,
+		}
+	}
+
+	c.JSON(http.StatusOK, result)
+}
+
 func InsertCategory(c *gin.Context) {
 	var category structs.Category
 

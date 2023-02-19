@@ -29,6 +29,29 @@ func GetAllCategory(db *sql.DB) (err error, results []structs.Category) {
 	return
 }
 
+func GetBookFromCategory(db *sql.DB) (err error, results []structs.Books) {
+	sql := "SELECT * FROM books WHERE category_id = $1"
+	var books = structs.Books{}
+
+	rows, err := db.Query(sql, books.CategoryID)
+	if err != nil {
+		panic(err)
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+
+		err = rows.Scan(&books.ID, &books.Title, &books.Created_at, &books.Updated_at)
+		if err != nil {
+			panic(err)
+		}
+
+		results = append(results, books)
+	}
+	return
+}
+
 func InsertCategory(db *sql.DB, category structs.Category) (err error) {
 	sql := "INSERT INTO category (id, name, updated_at) VALUES ($1,$2,$3)"
 
