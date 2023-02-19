@@ -56,7 +56,7 @@ func InsertCategory(db *sql.DB, category structs.Category) (err error) {
 	sql := "INSERT INTO category (id, name, updated_at) VALUES (DEFAULT,$2,$3)"
 
 	category.Updated_at = time.Now()
-	errs := db.QueryRow(sql, category.ID, category.Name, category.Updated_at)
+	errs := db.QueryRow(sql, category.Name, category.Updated_at)
 
 	return errs.Err()
 }
