@@ -21,7 +21,7 @@ func Segitiga(c *gin.Context) {
 		hasil = alasINT*2 + tinggiINT
 	}
 
-	c.String(http.StatusOK, "Hitung %s Segitiga = %s", hitung, hasil)
+	c.String(http.StatusOK, "Hitung %s Segitiga = %d", hitung, hasil)
 }
 
 func Persegi(c *gin.Context) {
@@ -36,7 +36,7 @@ func Persegi(c *gin.Context) {
 		hasil = sisiINT * 4
 	}
 
-	c.String(http.StatusOK, "Hitung %s Persegi = %s", hitung, hasil)
+	c.String(http.StatusOK, "Hitung %s Persegi = %d", hitung, hasil)
 }
 
 func PersegiPanjang(c *gin.Context) {
@@ -54,7 +54,7 @@ func PersegiPanjang(c *gin.Context) {
 		hasil = pINT*2 + lINT*2
 	}
 
-	c.String(http.StatusOK, "Hitung %s PersegiPanjang = %s", hitung, hasil)
+	c.String(http.StatusOK, "Hitung %s PersegiPanjang = %d", hitung, hasil)
 }
 
 func Lingkaran(c *gin.Context) {
@@ -68,5 +68,5 @@ func Lingkaran(c *gin.Context) {
 		hasil = 2 * 22 * jariJariINT / 7
 	}
 
-	c.String(http.StatusOK, "Hitung %s Lingkaran = %s", hitung, hasil)
+	c.String(http.StatusOK, "Hitung %s Lingkaran = %d", hitung, hasil)
 }
