@@ -3,6 +3,7 @@ package repository
 import (
 	"database/sql"
 	"quiz3/structs"
+	"regexp"
 	"time"
 )
 
@@ -30,6 +31,9 @@ func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
 }
 
 func InsertBooks(db *sql.DB, books structs.Books) (err error) {
+
+	// var a = books.Image
+
 	sql := "INSERT INTO books (id, title, description, image_url, price, total_page, thickness, release_year, updated_at, category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)"
 
 	if books.TotalPage < 100 {
@@ -40,10 +44,16 @@ func InsertBooks(db *sql.DB, books structs.Books) (err error) {
 		books.Thickness = "tebal"
 	}
 
-	if books.ReleaseYear < 1980 {
+	var regex, _ = regexp.Compile(`([^\s]+(\.(?i)(jpe?g|png|gif|bmp|webp))$)`)
+
+	if books.ReleaseYear < 1980 && regex.MatchString(books.Image) {
 		panic("ReleaseYear tidak boleh kurang dari 1980")
-	} else if books.ReleaseYear > 2021 {
+	} else if books.ReleaseYear > 2021 && regex.MatchString(books.Image) {
 		panic("ReleaseYear tidak boleh lebih dari 2021")
+	} else if books.ReleaseYear < 1980 && !regex.MatchString(books.Image) {
+		panic("ReleaseYear tidak boleh kurang dari 1980 dan image_url bukan gambar")
+	} else if books.ReleaseYear > 2021 && !regex.MatchString(books.Image) {
+		panic("ReleaseYear tidak boleh lebih dari 2021 dan image_url bukan gambar")
 	}
 
 	books.Updated_at = time.Now()
@@ -61,6 +71,18 @@ func UpdatedBooks(db *sql.DB, books structs.Books) (err error) {
 		books.Thickness = "sedang"
 	} else {
 		books.Thickness = "tebal"
+	}
+
+	var regex, _ = regexp.Compile(`([^\s]+(\.(?i)(jpe?g|png|gif|bmp|webp))$)`)
+
+	if books.ReleaseYear < 1980 && regex.MatchString(books.Image) {
+		panic("ReleaseYear tidak boleh kurang dari 1980")
+	} else if books.ReleaseYear > 2021 && regex.MatchString(books.Image) {
+		panic("ReleaseYear tidak boleh lebih dari 2021")
+	} else if books.ReleaseYear < 1980 && !regex.MatchString(books.Image) {
+		panic("ReleaseYear tidak boleh kurang dari 1980 dan image_url bukan gambar")
+	} else if books.ReleaseYear > 2021 && !regex.MatchString(books.Image) {
+		panic("ReleaseYear tidak boleh lebih dari 2021 dan image_url bukan gambar")
 	}
 
 	books.Updated_at = time.Now()
