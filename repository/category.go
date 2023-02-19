@@ -57,7 +57,7 @@ var CatDatas = []structs.Category{}
 func InsertCategory(db *sql.DB, category structs.Category) (err error) {
 	sql := "INSERT INTO category (id, name, updated_at) VALUES ($1,$2,$3)"
 
-	newCatID := len(CatDatas)
+	newCatID := len(CatDatas) + 1
 	category.ID = int64(newCatID)
 
 	category.Updated_at = time.Now()
