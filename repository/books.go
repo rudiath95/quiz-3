@@ -34,7 +34,7 @@ func InsertBooks(db *sql.DB, books structs.Books) (err error) {
 
 	// var a = books.Image
 
-	sql := "INSERT INTO books (id, title, description, image_url, price, total_page, thickness, release_year, updated_at, category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)"
+	sql := "INSERT INTO books (id, title, description, image_url, price, total_page, thickness, release_year, updated_at, category_id) VALUES (DEFAULT,$2,$3,$4,$5,$6,$7,$8,$9,$10)"
 
 	if books.TotalPage < 100 {
 		books.Thickness = "tipis"
