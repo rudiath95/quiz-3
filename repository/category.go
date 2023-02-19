@@ -30,7 +30,7 @@ func GetAllCategory(db *sql.DB) (err error, results []structs.Category) {
 }
 
 func InsertCategory(db *sql.DB, category structs.Category) (err error) {
-	sql := "INSERT INTO category (id, name, created_at) VALUES ($1,$2,$3)"
+	sql := "INSERT INTO category (id, name, updated_at) VALUES ($1,$2,$3)"
 
 	category.Updated_at = time.Now()
 	errs := db.QueryRow(sql, category.ID, category.Name, category.Updated_at)
@@ -39,7 +39,7 @@ func InsertCategory(db *sql.DB, category structs.Category) (err error) {
 }
 
 func UpdatedCategory(db *sql.DB, category structs.Category) (err error) {
-	sql := "UPDATE category SET name = $1,created_at = $2 WHERE id = $3"
+	sql := "UPDATE category SET name = $1,updated_at = $2 WHERE id = $3"
 
 	category.Updated_at = time.Now()
 	errs := db.QueryRow(sql, category.Name, category.Updated_at, category.ID)

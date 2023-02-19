@@ -30,19 +30,35 @@ func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
 }
 
 func InsertBooks(db *sql.DB, books structs.Books) (err error) {
-	sql := "INSERT INTO books (id, name, created_at) VALUES ($1,$2,$3)"
+	sql := "INSERT INTO books (id, title, description, image_url, price, total_page, thickness, release_year, updated_at, category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)"
+
+	if books.TotalPage < 100 {
+		books.Thickness = "tipis"
+	} else if books.TotalPage < 200 {
+		books.Thickness = "sedang"
+	} else {
+		books.Thickness = "tebal"
+	}
 
 	books.Updated_at = time.Now()
-	errs := db.QueryRow(sql, books.ID, books.Title, books.Updated_at)
+	errs := db.QueryRow(sql, books.ID, books.Title, books.Description, books.Image, books.Price, books.TotalPage, books.Thickness, books.ReleaseYear, books.Updated_at, books.CategoryID)
 
 	return errs.Err()
 }
 
 func UpdatedBooks(db *sql.DB, books structs.Books) (err error) {
-	sql := "UPDATE books SET name = $1,created_at = $2 WHERE id = $3"
+	sql := "UPDATE books SET title = $1, description = $2, image_url = $3, price = $4, total_page = $5, thickness = $6, release_year = $7, updated_at = $8, category_id = $9 WHERE id = $10"
+
+	if books.TotalPage < 100 {
+		books.Thickness = "tipis"
+	} else if books.TotalPage < 200 {
+		books.Thickness = "sedang"
+	} else {
+		books.Thickness = "tebal"
+	}
 
 	books.Updated_at = time.Now()
-	errs := db.QueryRow(sql, books.Title, books.Updated_at, books.ID)
+	errs := db.QueryRow(sql, books.Title, books.Description, books.Image, books.Price, books.TotalPage, books.Thickness, books.ReleaseYear, books.Updated_at, books.CategoryID, books.ID)
 
 	return errs.Err()
 }
