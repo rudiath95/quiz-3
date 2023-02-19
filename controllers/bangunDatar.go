@@ -9,7 +9,7 @@ import (
 
 func Segitiga(c *gin.Context) {
 
-	hitung := c.DefaultQuery("luas", "keliling")
+	hitung := c.Query("hitung")
 	alas := c.Query("alas")
 	tinggi := c.Query("tinggi")
 	alasINT, _ := strconv.Atoi(alas)
@@ -26,7 +26,7 @@ func Segitiga(c *gin.Context) {
 
 func Persegi(c *gin.Context) {
 
-	hitung := c.DefaultQuery("luas", "keliling")
+	hitung := c.Query("hitung")
 	sisi := c.Query("sisi")
 	sisiINT, _ := strconv.Atoi(sisi)
 	var hasil int
@@ -41,7 +41,8 @@ func Persegi(c *gin.Context) {
 
 func PersegiPanjang(c *gin.Context) {
 
-	hitung := c.DefaultQuery("luas", "keliling")
+	hitung := c.Query("hitung")
+
 	p := c.Query("panjang")
 	l := c.Query("lebar")
 
@@ -58,7 +59,8 @@ func PersegiPanjang(c *gin.Context) {
 }
 
 func Lingkaran(c *gin.Context) {
-	hitung := c.DefaultQuery("luas", "keliling")
+	hitung := c.Query("hitung")
+
 	r := c.Query("jariJari")
 	jariJariINT, _ := strconv.Atoi(r)
 	var hasil int
