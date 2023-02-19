@@ -58,6 +58,11 @@ func main() {
 	authorized.PUT("/category/:id", controllers.UpdatedCategory)
 	authorized.DELETE("/category/:id", controllers.DeletedCategory)
 
+	router.GET("/books", controllers.GetAllBooks)
+	authorized.POST("/books", controllers.InsertBooks)
+	authorized.PUT("/books/:id", controllers.UpdatedBook)
+	authorized.DELETE("/books/:id", controllers.DeletedBook)
+
 	router.Run(":" + os.Getenv("PORT"))
 
 }
