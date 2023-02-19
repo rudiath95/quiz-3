@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+	"log"
 	"quiz3/structs"
 	"time"
 )
@@ -57,8 +58,18 @@ var CatDatas = []structs.Category{}
 func InsertCategory(db *sql.DB, category structs.Category) (err error) {
 	sql := "INSERT INTO category (id, name, updated_at) VALUES ($1,$2,$3)"
 
-	newCatID := len(CatDatas) + 1
-	category.ID = int64(newCatID)
+	var count int
+
+	err2 := db.QueryRow("SELECT COUNT(*) FROM category").Scan(&count)
+	switch {
+	case err2 != nil:
+		log.Fatal(err2)
+	default:
+		count = count + 1
+	}
+
+	// newCatID := len(CatDatas) + 1
+	category.ID = int64(count)
 
 	category.Updated_at = time.Now()
 	errs := db.QueryRow(sql, category.ID, category.Name, category.Updated_at)
