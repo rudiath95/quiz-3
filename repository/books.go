@@ -2,12 +2,22 @@ package repository
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
+	"net/http"
 	"quiz3/structs"
 
 	"regexp"
 	"time"
 )
+
+func endApp() (w http.ResponseWriter, r *http.Request) {
+	fmt.Println("End App")
+	message := recover()
+	fmt.Println(w, "Terjadi Error", message)
+
+	return
+}
 
 func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
 	sql := "SELECT * FROM books"
@@ -33,7 +43,7 @@ func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
 }
 
 func InsertBooks(db *sql.DB, books structs.Books /*, c *gin.Context*/) (err error) {
-
+	defer endApp()
 	sql := "INSERT INTO books (id, title, description, image_url, price, total_page, thickness, release_year, updated_at, category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)"
 
 	var count int
