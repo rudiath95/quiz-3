@@ -2,11 +2,18 @@ package repository
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"quiz3/structs"
 	"regexp"
 	"time"
 )
+
+func endApp() {
+	fmt.Println("End App")
+	message := recover()
+	fmt.Println("Terjadi Error", message)
+}
 
 func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
 	sql := "SELECT * FROM books"
@@ -56,7 +63,7 @@ func InsertBooks(db *sql.DB, books structs.Books /*, c *gin.Context*/) (err erro
 	}
 
 	var regex, _ = regexp.Compile(`([^\s]+(\.(?i)(jpe?g|png|gif|bmp|webp))$)`)
-
+	defer endApp()
 	if books.ReleaseYear < 1980 && regex.MatchString(books.Image) {
 		// c.String(http.StatusOK, "ReleaseYear tidak boleh kurang dari 1980")
 		// c.JSON(http.StatusInternalServerError, "ReleaseYear tidak boleh kurang dari 1980")
