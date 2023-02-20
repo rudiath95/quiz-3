@@ -21,7 +21,7 @@ func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
 	for rows.Next() {
 		var books = structs.Books{}
 
-		err = rows.Scan(&books.ID, &books.Title, &books.Description, &books.Image, &books.Price, &books.TotalPage, &books.Thickness, &books.ReleaseYear, &books.Created_at, &books.Updated_at, &books.CategoryID)
+		err = rows.Scan(&books.ID, &books.Title, &books.Description, &books.Image, &books.ReleaseYear, &books.Price, &books.TotalPage, &books.Thickness, &books.Created_at, &books.Updated_at, &books.CategoryID)
 		if err != nil {
 			panic(err)
 		}
