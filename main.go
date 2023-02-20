@@ -65,7 +65,7 @@ func main() {
 	}))
 	router.Use(gin.Recovery())
 	router.GET("/categories", controllers.GetAllCategory)
-	router.GET("/categories/:id/books ", controllers.GetBookFromCategory)
+	router.GET("/categories/books/:id ", controllers.GetBookFromCategory)
 	authorized.POST("/categories", controllers.InsertCategory)
 	authorized.PUT("/categories/:id", controllers.UpdatedCategory)
 	authorized.DELETE("/categories/:id", controllers.DeletedCategory)
