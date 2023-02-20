@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+	"log"
 	"quiz3/structs"
 	"regexp"
 	"time"
@@ -32,9 +33,19 @@ func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
 
 func InsertBooks(db *sql.DB, books structs.Books) (err error) {
 
-	// var a = books.Image
-
 	sql := "INSERT INTO books (id, title, description, image_url, price, total_page, thickness, release_year, updated_at, category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)"
+
+	var count int
+
+	err2 := db.QueryRow("SELECT COUNT(*) FROM books").Scan(&count)
+	switch {
+	case err2 != nil:
+		log.Fatal(err2)
+	default:
+		count = count + 1
+	}
+
+	books.ID = int64(count)
 
 	if books.TotalPage < 100 {
 		books.Thickness = "tipis"

@@ -68,7 +68,6 @@ func InsertCategory(db *sql.DB, category structs.Category) (err error) {
 		count = count + 1
 	}
 
-	// newCatID := len(CatDatas) + 1
 	category.ID = int64(count)
 
 	category.Updated_at = time.Now()
