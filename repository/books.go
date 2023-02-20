@@ -12,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func endApp(c *gin.Context) {
+func endApp() (c *gin.Context) {
 	fmt.Println("End App")
 	message := recover()
 	// fmt.Println("Terjadi Error", message)
