@@ -34,7 +34,7 @@ func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
 	return
 }
 
-func InsertBooks(db *sql.DB, books structs.Books c *gin.Context) (err error) {
+func InsertBooks(db *sql.DB, books structs.Books, c *gin.Context) (err error) {
 
 	sql := "INSERT INTO books (id, title, description, image_url, price, total_page, thickness, release_year, updated_at, category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)"
 
