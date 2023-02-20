@@ -4,19 +4,15 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"net/http"
 	"quiz3/structs"
 	"regexp"
 	"time"
-
-	"github.com/gin-gonic/gin"
 )
 
-func endApp() (c *gin.Context) {
+func endApp() {
 	fmt.Println("End App")
 	message := recover()
-	// fmt.Println("Terjadi Error", message)
-	c.JSON(http.StatusInternalServerError, message)
+	fmt.Println("Terjadi Error", message)
 }
 
 func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
