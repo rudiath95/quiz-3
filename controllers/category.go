@@ -34,8 +34,10 @@ func GetBookFromCategory(c *gin.Context) {
 	var (
 		result gin.H
 	)
+	id, _ := strconv.Atoi(c.Param("id"))
 
-	category, err := repository.GetBookFromCategory(database.DbConnection)
+	catID := int64(id)
+	books, err := repository.GetBookFromCategory(database.DbConnection, catID)
 
 	if err != nil {
 		result = gin.H{
@@ -43,7 +45,7 @@ func GetBookFromCategory(c *gin.Context) {
 		}
 	} else {
 		result = gin.H{
-			"result": category,
+			"result": books,
 		}
 	}
 

@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"net/http"
 	"os"
 	"quiz3/controllers"
 	"quiz3/database"
@@ -17,7 +18,16 @@ var (
 	err error
 )
 
+func endApp() (w http.ResponseWriter, r *http.Request) {
+	fmt.Println("End App")
+	message := recover()
+	fmt.Println(w, "Terjadi Error", message)
+
+	return
+}
+
 func main() {
+	defer endApp()
 	//ENV Configuration
 	err = godotenv.Load("config/.env")
 	if err != nil {

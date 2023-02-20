@@ -30,11 +30,10 @@ func GetAllCategory(db *sql.DB) (err error, results []structs.Category) {
 	return
 }
 
-func GetBookFromCategory(db *sql.DB, results []structs.Books) (err error) {
+func GetBookFromCategory(db *sql.DB, catID int64) (err error, results []structs.Books) {
 	sql := "SELECT * FROM books WHERE category_id = $1"
-	var books = structs.Books{}
 
-	rows, err := db.Query(sql, books.CategoryID)
+	rows, err := db.Query(sql, catID)
 	if err != nil {
 		panic(err)
 	}
@@ -42,6 +41,7 @@ func GetBookFromCategory(db *sql.DB, results []structs.Books) (err error) {
 	defer rows.Close()
 
 	for rows.Next() {
+		var books = structs.Books{}
 
 		err = rows.Scan(&books.ID, &books.Title, &books.Description, &books.Image, &books.ReleaseYear, &books.Price, &books.TotalPage, &books.Thickness, &books.Created_at, &books.Updated_at, &books.CategoryID)
 		if err != nil {
