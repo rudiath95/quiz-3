@@ -53,6 +53,7 @@ func main() {
 		"admin":  "password",
 		"editor": "secret",
 	}))
+	router.Use(gin.Recovery())
 	router.GET("/categories", controllers.GetAllCategory)
 	router.GET("/categories/:id/books ", controllers.GetBookFromCategory)
 	authorized.POST("/categories", controllers.InsertCategory)
