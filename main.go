@@ -28,6 +28,7 @@ func endApp() (w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	defer endApp()
+
 	//ENV Configuration
 	err = godotenv.Load("config/.env")
 	if err != nil {

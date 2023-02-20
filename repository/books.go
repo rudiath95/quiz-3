@@ -2,22 +2,13 @@ package repository
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
-	"net/http"
+	"quiz3/recovery"
 	"quiz3/structs"
 
 	"regexp"
 	"time"
 )
-
-func endApp() (w http.ResponseWriter, r *http.Request) {
-	fmt.Println("End App")
-	message := recover()
-	fmt.Println(w, "Terjadi Error", message)
-
-	return
-}
 
 func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
 	sql := "SELECT * FROM books"
@@ -43,7 +34,7 @@ func GetAllBooks(db *sql.DB) (err error, results []structs.Books) {
 }
 
 func InsertBooks(db *sql.DB, books structs.Books /*, c *gin.Context*/) (err error) {
-	defer endApp()
+	defer recovery.EndApp()
 	sql := "INSERT INTO books (id, title, description, image_url, price, total_page, thickness, release_year, updated_at, category_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)"
 
 	var count int
@@ -84,6 +75,8 @@ func InsertBooks(db *sql.DB, books structs.Books /*, c *gin.Context*/) (err erro
 }
 
 func UpdatedBooks(db *sql.DB, books structs.Books) (err error) {
+	defer recovery.EndApp()
+
 	sql := "UPDATE books SET title = $1, description = $2, image_url = $3, price = $4, total_page = $5, thickness = $6, release_year = $7, updated_at = $8, category_id = $9 WHERE id = $10"
 
 	if books.TotalPage < 100 {

@@ -29,3 +29,11 @@ func Recovery(next http.Handler) http.Handler {
 
 	})
 }
+
+func EndApp() (w http.ResponseWriter, r *http.Request) {
+	fmt.Println("End App")
+	message := recover()
+	fmt.Println(w, "Terjadi Error", message)
+
+	return
+}
